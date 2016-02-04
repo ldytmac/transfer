@@ -1,0 +1,155 @@
+-- Following like is Oracle-specific.
+-- Needed in Oracle to have ampersand in strings
+SET DEFINE OFF;    
+
+-- Uncomment these lines to drop the tables.
+DROP TABLE Member;
+DROP TABLE Enrolled;
+DROP TABLE Student;
+DROP TABLE Project;
+DROP TABLE Course;
+
+
+CREATE TABLE Student (
+       sid integer PRIMARY KEY, 
+       name VARCHAR(20),
+       major VARCHAR(20)
+);
+
+CREATE TABLE Project ( 
+       pid integer  PRIMARY KEY, 
+       ptitle	VARCHAR(50) 
+);
+
+CREATE TABLE Course ( 
+       cid integer PRIMARY KEY, 
+       title VARCHAR(30)
+);
+
+CREATE TABLE Member (
+       pid integer NOT NULL, 
+       sid integer NOT NULL, 
+       PRIMARY KEY(pid, sid),
+       FOREIGN KEY (pid) REFERENCES Project,
+       FOREIGN KEY (sid) REFERENCES Student
+);
+
+
+CREATE TABLE Enrolled ( 
+       sid integer NOT NULL,
+       cid integer NOT NULL,
+       PRIMARY KEY(sid, cid),
+       FOREIGN KEY(sid) REFERENCES Student,
+       FOREIGN KEY(cid) REFERENCES Course
+);
+
+
+
+INSERT INTO Student VALUES(1,'Allen','CS');
+INSERT INTO Student VALUES(2,'Bob','CE');
+INSERT INTO Student VALUES(3,'Caylee','EE');
+INSERT INTO Student VALUES(4,'David','CS');
+INSERT INTO Student VALUES(5,'Faker','AE');
+INSERT INTO Student VALUES(6,'ELLA','ART');
+INSERT INTO Student VALUES(7,'George','EE');
+INSERT INTO Student VALUES(8,'Hamilton','CS');
+
+INSERT INTO Student VALUES(100,'Hamilto','CS');
+INSERT INTO Student VALUES(101,'Hamilt','CS');
+INSERT INTO Student VALUES(102,'Hamil','CS');
+INSERT INTO Student VALUES(103,'Hami','CS');
+INSERT INTO Student VALUES(104,'Ham','CS');
+INSERT INTO Student VALUES(105,'Ha','CS');
+INSERT INTO Student VALUES(106,'Hmilton','CS');
+INSERT INTO Student VALUES(107,'Hailton','CS');
+INSERT INTO Student VALUES(108,'Hamlton','CS');
+INSERT INTO Student VALUES(109,'Hamiton','CS');
+INSERT INTO Student VALUES(110,'Hamion','CS');
+INSERT INTO Student VALUES(111,'Hamon','CS');
+
+
+
+
+
+INSERT INTO Project VALUES(10,'T1');
+INSERT INTO Project VALUES(11,'T2');
+INSERT INTO Project VALUES(12,'T3');
+INSERT INTO Project VALUES(13,'T4');
+INSERT INTO Project VALUES(14,'T5');
+INSERT INTO Project VALUES(15,'T6');
+INSERT INTO Project VALUES(16,'T7');
+INSERT INTO Project VALUES(17,'T8');
+INSERT INTO Project VALUES(18,'T9');
+INSERT INTO Project VALUES(19,'T10');
+
+INSERT INTO Course VALUES(20,'EECS482');
+INSERT INTO Course VALUES(21,'EECS483');
+INSERT INTO Course VALUES(22,'EECS484');
+INSERT INTO Course VALUES(23,'EECS485');
+INSERT INTO Course VALUES(24,'EECS489');
+INSERT INTO Course VALUES(25,'EECS560');
+INSERT INTO Course VALUES(26,'EECS470');
+INSERT INTO Course VALUES(27,'EECS494');
+INSERT INTO Course VALUES(28,'EECS498');
+INSERT INTO Course VALUES(29,'EECS501');
+INSERT INTO Course VALUES(30,'EECS551');
+INSERT INTO Course VALUES(31,'EECS427');
+
+INSERT INTO Member VALUES(10,1);
+INSERT INTO Member VALUES(10,2);
+INSERT INTO Member VALUES(10,3);
+INSERT INTO Member VALUES(10,4);
+INSERT INTO Member VALUES(10,5);
+INSERT INTO Member VALUES(10,6);
+INSERT INTO Member VALUES(10,7);
+INSERT INTO Member VALUES(10,8);
+INSERT INTO Member VALUES(10,100);
+--INSERT INTO Member VALUES(11,2);
+--INSERT INTO Member VALUES(11,4);
+--INSERT INTO Member VALUES(12,3);
+--INSERT INTO Member VALUES(12,5);
+--INSERT INTO Member VALUES(12,6);
+--INSERT INTO Member VALUES(13,7);
+--INSERT INTO Member VALUES(14,8);
+--INSERT INTO Member VALUES(15,8);
+--INSERT INTO Member VALUES(16,8);
+--INSERT INTO Member VALUES(17,3);
+--INSERT INTO Member VALUES(17,7);
+--INSERT INTO Member VALUES(18,4);
+--INSERT INTO Member VALUES(18,5);
+--INSERT INTO Member VALUES(18,1);
+
+
+INSERT INTO Enrolled VALUES(1,20);
+INSERT INTO Enrolled VALUES(1,21);
+INSERT INTO Enrolled VALUES(1,22);
+INSERT INTO Enrolled VALUES(1,23);
+INSERT INTO Enrolled VALUES(2,22);
+INSERT INTO Enrolled VALUES(2,21);
+INSERT INTO Enrolled VALUES(3,21);
+INSERT INTO Enrolled VALUES(4,22);
+INSERT INTO Enrolled VALUES(4,24);
+INSERT INTO Enrolled VALUES(4,26);
+INSERT INTO Enrolled VALUES(5,22);
+INSERT INTO Enrolled VALUES(5,21);
+INSERT INTO Enrolled VALUES(6,21);
+INSERT INTO Enrolled VALUES(7,20);
+INSERT INTO Enrolled VALUES(7,22);
+INSERT INTO Enrolled VALUES(7,24);
+
+INSERT INTO Enrolled VALUES(100,24);
+INSERT INTO Enrolled VALUES(101,24);
+INSERT INTO Enrolled VALUES(102,24);
+INSERT INTO Enrolled VALUES(103,24);
+INSERT INTO Enrolled VALUES(104,24);
+INSERT INTO Enrolled VALUES(105,24);
+INSERT INTO Enrolled VALUES(106,24);
+INSERT INTO Enrolled VALUES(107,24);
+INSERT INTO Enrolled VALUES(108,24);
+INSERT INTO Enrolled VALUES(109,24);
+INSERT INTO Enrolled VALUES(110,24);
+INSERT INTO Enrolled VALUES(111,24);
+
+
+
+

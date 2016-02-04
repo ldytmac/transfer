@@ -13,7 +13,10 @@ SELECT title FROM books;
 SELECT E.isbn
 FROM editions E, books B, authors A 
 WHERE E.book_id = B.book_id AND 
-   	  B.author_id = A.author_id;
+      B.author_id = A.author_id AND 
+      A.first_name = 'Frank' AND
+      A.last_name = 'Herbert';
+	
 
 
 -- Q2: List last name and first name of authors who have written both
@@ -37,35 +40,63 @@ SELECT B.title, S.subject, A.author_id, A.last_name, A.first_name
 FROM books B, subjects S, authors A
 WHERE A.author_id = B.author_id AND B.subject_id = S.subject_id
   AND A.author_id IN (SELECT B1.author_id 
-  					  FROM  books B1, subjects S1
-  					  WHERE B1.subject_id = S1.subject_id
-  					    AND S1.subject = 'Short Story');
+  		       FROM  books B1, subjects S1
+  		       WHERE B1.subject_id = S1.subject_id
+  		       AND S1.subject = 'Short Story');
+
 
 
 -- Q4: Find id, first name, and last name of authors who wrote books for all the 
 -- subjects of books written by Edgar Allen Poe.
-SELECT A.author_id, A.first_name, A.last_name
-FROM 
+CREATE VIEW AllSubjects AS 
+SELECT B.subject_id
+FROM books B, authors A
+WHERE A.author_id = B.author_id AND 
+A.first_name = 'Edgar Alle' AND A.last_name = 'Poe';
+
+SELECT A.author_id, A.last_name, A.first_name
+FROM authors A, books B
+WHERE A.author_id = B.author_id AND 
 
 
 
 -- Q5: Find the name and id of all publishers whos have published books for authors
 -- who have written more than one book, order by ascending publisher id;
-
+SELECT DISTINCT P.name, P.publisher_id
+FROM  publishers P, editions E, books B
+WHERE P.publisher_id = E.publisher_id AND E.book_id = B.book_id
+  AND B.author_id IN (SELECT B1.author_id 
+			  FROM books B1
+			  GROUP BY B1.author_id
+			  HAVING COUNT(*) > 1)
+ORDER BY P.publisher_id;
 
 
 -- Q6: Find the last name and first name of authors who haven't written any book
+SELECT A.last_name, A.first_name
+FROM authors A
+WHERE A.author_id NOT IN (SELECT B.author_id
+			   FROM books B 
+			   WHERE B.author_id = A.author_id);
 
 
-
+-- ???
 -- Q7: Find the book_id and its corresponding total stock available for all book editions ordered
 --     in descending order by the total stock. Name the column for total stock as NUM_STOCK. 
 --     NOTE: You do not need to consider editions of books that are not in the Stock Table.
-
+SELECT E.book_id, SUM(S.stock) AS NUM_STOCK
+FROM editions E, stock S
+WHERE E.isbn = S.isbn
+GROUP BY E.book_id
+ORDER BY NUM_STOCK DESC;
 
 
 
 -- Q8: Find id of authors who have written exactly 1 book. Name the column as id. 
 -- Order the id in ascending order
-
+SELECT B.author_id AS id
+FROM  books B
+GROUP BY B.author_id
+HAVING COUNT(*) = 1
+ORDER BY B.author_id;
 
